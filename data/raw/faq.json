@@ -1,0 +1,43 @@
+[
+    {
+      "question": "How do I change Wi-Fi for my camera?",
+      "answer": "Go to device settings → Network → Change Wi-Fi and follow setup steps."
+    },
+    {
+      "question": "Why is my camera offline?",
+      "answer": "Check power and Wi-Fi signal. Reboot the camera if necessary."
+    },
+    {
+      "question": "How long are recordings kept?",
+      "answer": "Recordings are retained for 30 days on the standard plan."
+    },
+    {
+      "question": "How to contact support?",
+      "answer": "Email support@innovasoft.example.com including your device ID and app version."
+    },
+    {
+      "question": "Can multiple users access the camera?",
+      "answer": "Yes, share access via the app by inviting other users."
+    },
+    {
+      "question": "How do I reset the camera?",
+      "answer": "Press and hold the reset button for 10 seconds until the LED blinks red."
+    },
+    {
+      "question": "Is there a mobile app for both iOS and Android?",
+      "answer": "Yes, the app is available for iOS 13+ and Android 10+."
+    },
+    {
+      "question": "Can I integrate the camera with smart home assistants?",
+      "answer": "Yes, the camera integrates with Alexa and Google Home."
+    },
+    {
+      "question": "What should I do if motion alerts are delayed?",
+      "answer": "Ensure notifications are enabled and check server status. Reboot the device if needed."
+    },
+    {
+      "question": "Is my data secure in the cloud?",
+      "answer": "Yes, all recordings are encrypted in transit and at rest, and access requires authentication."
+    }
+  ]
+  

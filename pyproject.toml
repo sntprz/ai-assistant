@@ -1,0 +1,23 @@
+[project]
+name = "ai-assistant"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.13.5",
+    "google-genai>=1.38.0",
+    "langchain-community>=0.3.29",
+    "langchain-google-genai>=2.1.12",
+    "langchain[docs]>=0.3.27",
+    "markdown>=3.9",
+    "pandas>=2.3.2",
+    "pypdf>=4.3.1",
+    "docx2txt>=0.8",
+    "jq>=1.8.0",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.1.1",
+    "supabase>=2.20.0",
+    "tenacity>=9.1.2",
+]
+
