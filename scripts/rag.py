@@ -1,8 +1,14 @@
 import time
 import os
+import logging
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from scripts.retrieve import retrieve
+import langchain
+
+logger = logging.getLogger('uvicorn.error')
+logger.setLevel(logging.DEBUG)
+langchain.debug = True
 
 load_dotenv()
 
@@ -19,21 +25,23 @@ def build_prompt(query, passages):
         parts.append(f"[{idx}] (doc:{doc_id}, title:{title}, source:{source}, score:{score})\n{text}\n")
     prompt = (
         "You are a helpful assistant. Answer concisely using ONLY the provided passages.\n"
-        "Cite passage indices like [1], [2] if helpful. If the answer cannot be found, say you don't know.\n\n"
+        "Cite passage indices like [1], [2] if helpful.\n\n"
         f"Question: {query}\n\n"
         "Passages:\n" + "\n".join(parts) + "\nAnswer:"
     )
     return prompt
 
-def call_gemini(prompt, max_tokens=256, temperature=0.1, model="gemini-2.0-flash"):
-    llm = ChatGoogleGenerativeAI(model=model, temperature=temperature, max_output_tokens=max_tokens)
+def call_gemini(prompt, temperature=0.1, model="gemini-2.5-flash"):
+    llm = ChatGoogleGenerativeAI(model=model, temperature=temperature)
     resp = llm.invoke(prompt)
+    logger.debug(resp.content)
     return resp.content
 
-def answer_query(query, top_k=5, model="gemini-2.0-flash"):
+def answer_query(query, top_k=5, model="gemini-2.5-flash"):
     t0 = time.time()
     passages = retrieve(query, top_k=top_k)
     prompt = build_prompt(query, passages)
     answer = call_gemini(prompt, model=model)
+    logger.debug(answer)
     latency = int((time.time() - t0) * 1000)
     return {"answer": answer, "sources": passages, "latency_ms": latency}
