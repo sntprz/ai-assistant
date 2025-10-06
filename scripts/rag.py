@@ -16,13 +16,8 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 def build_prompt(query, passages):
     parts = []
-    for idx, p in enumerate(passages, start=1):
-        doc_id = p.get("doc_id")
-        title = p.get("title")
-        source = p.get("source")
-        score = p.get("score")
-        text = p.get("content")
-        parts.append(f"[{idx}] (doc:{doc_id}, title:{title}, source:{source}, score:{score})\n{text}\n")
+    for idx, content in enumerate(passages, start=1):
+        parts.append(f"[{idx}] \n{content}\n")
     prompt = (
         "You are a helpful assistant. Answer concisely using ONLY the provided passages.\n"
         "Cite passage indices like [1], [2] if helpful.\n\n"

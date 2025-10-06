@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import SupabaseVectorStore
 import db.connection as db
+import logging
+
+logger = logging.getLogger('uvicorn.error')
+logger.setLevel(logging.DEBUG)
 
 load_dotenv()
 
@@ -22,16 +26,5 @@ def retrieve(query: str, top_k: int = 5):
         table_name="documents",
         query_name="match_documents",
     )
-    docs_with_scores = vector_store.similarity_search_with_relevance_scores(query, k=top_k)
-    results = []
-    for doc, score in docs_with_scores:
-        md = doc.metadata or {}
-        results.append({
-            "doc_id": md.get("doc_id"),
-            "title": md.get("title"),
-            "source": md.get("source"),
-            "date": md.get("created_at") or md.get("date"),
-            "content": doc.page_content,
-            "score": score,
-        })
-    return results
+    docs = vector_store.similarity_search(query, k=top_k)
+    return list(map(lambda doc: doc.page_content, docs))
